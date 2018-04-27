@@ -49,7 +49,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @RequestScoped
 public class PortfolioServices {
-	private static final String PORTFOLIO_SERVICE = "http://portfolio-service:9080/portfolio";
+	private static final String PORTFOLIO_SERVICE = System.getenv("PORTFOLIO_SERVICE");
+	private static final String PORTFOLIO_SERVICE_PORT = System.getenv("PORTFOLIO_SERVICE_PORT");
+	private static final String PORTFOLIO_SERVICE_CONTEXT = System.getenv("PORTFOLIO_SERVICE_CONTEXT");
+	private static final String PORTFOLIO_SERVICE_URL = "http://" + PORTFOLIO_SERVICE + ":" + PORTFOLIO_SERVICE_PORT + "/" + PORTFOLIO_SERVICE_CONTEXT;
 	private static PortfolioServices singleton = null;
 
 	private String jwtAudience = System.getenv("JWT_AUDIENCE"); //use mpConfig instead of this
@@ -84,7 +87,7 @@ public class PortfolioServices {
 		JsonObject portfolio = null;
 
 		try {
-			portfolio = (JsonObject) invokeREST(request, "GET", PORTFOLIO_SERVICE+"/"+owner, null);
+			portfolio = (JsonObject) invokeREST(request, "GET", PORTFOLIO_SERVICE_URL+"/"+owner, null);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -96,7 +99,7 @@ public class PortfolioServices {
 		JsonObject portfolio = null;
 
 		try {
-			portfolio = (JsonObject) invokeREST(request, "POST", PORTFOLIO_SERVICE+"/"+owner, null);
+			portfolio = (JsonObject) invokeREST(request, "POST", PORTFOLIO_SERVICE_URL+"/"+owner, null);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -108,7 +111,7 @@ public class PortfolioServices {
 		JsonObject portfolio = null;
 
 		try {
-			String uri = PORTFOLIO_SERVICE+"/"+owner+"?symbol="+symbol+"&shares="+shares;
+			String uri = PORTFOLIO_SERVICE_URL+"/"+owner+"?symbol="+symbol+"&shares="+shares;
 			portfolio = (JsonObject) invokeREST(request, "PUT", uri, null);
 		} catch (Throwable t) {
 			t.printStackTrace();
@@ -121,7 +124,7 @@ public class PortfolioServices {
 		JsonObject portfolio = null;
 
 		try {
-			portfolio = (JsonObject) invokeREST(request, "DELETE", PORTFOLIO_SERVICE+"/"+owner, null);
+			portfolio = (JsonObject) invokeREST(request, "DELETE", PORTFOLIO_SERVICE_URL+"/"+owner, null);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -134,7 +137,7 @@ public class PortfolioServices {
 
 		try {
 			String text = feedback.toString();
-			response = (JsonObject) invokeREST(request, "POST", PORTFOLIO_SERVICE+"/"+owner+"/feedback", text);
+			response = (JsonObject) invokeREST(request, "POST", PORTFOLIO_SERVICE_URL+"/"+owner+"/feedback", text);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -157,8 +160,8 @@ public class PortfolioServices {
 		conn.setRequestMethod(verb);
 		conn.setRequestProperty("Content-Type", "application/json");
 		conn.setDoOutput(true);
-		
-		// add the JWT token to the authorization header. 
+
+		// add the JWT token to the authorization header.
 		String jwtToken = getSingleton().createJWT(userName);
 		conn.setRequestProperty("Authorization", "Bearer "+ jwtToken);
 
@@ -181,13 +184,13 @@ public class PortfolioServices {
 
 	/**
 	 * Create Json Web Token.
-	 * return: the base64 encoded and signed token. 
+	 * return: the base64 encoded and signed token.
 	 */
 	private String createJWT(String userName){
 		String jwtTokenString = null;
-		
+
 		try {
-			// create() uses default settings.  
+			// create() uses default settings.
 			// For other settings, specify a JWTBuilder element in server.xml
 			// and call create(builder id)
 			JwtBuilder builder = JwtBuilder.create();
@@ -205,9 +208,9 @@ public class PortfolioServices {
 			//builder.claim("iss", request.getRequestURL().toString());
 			builder.claim("iss", jwtIssuer);
 
-			JwtToken theToken = builder.buildJwt();			
+			JwtToken theToken = builder.buildJwt();
 			jwtTokenString = theToken.compact();
-		} catch (Exception e) {			
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
