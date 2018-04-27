@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: {{ .Chart.Name }}
+data:
+  portfolio_service: {{ .Release.Name }}-{{ .Values.portfolio.portfolio_service }}
+  portfolio_service_port: "{{ .Values.portfolio.portfolio_service_port }}"
+  portfolio_service_context: "{{ .Values.portfolio.portfolio_service_context }}"
