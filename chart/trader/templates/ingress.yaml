@@ -11,5 +11,5 @@ spec:
       paths:
       - path: /trader/.*
         backend:
-          serviceName: {{ .Release.Name }}-{{ .Chart.Name }}
+          serviceName: trader-service
           servicePort: {{ .Values.service.servicePort.https }}
