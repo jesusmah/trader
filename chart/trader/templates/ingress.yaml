@@ -4,12 +4,13 @@ kind: Ingress
 metadata:
   name: {{ .Release.Name }}-{{  .Chart.Name }}
   annotations:
-    kubernetes.io/ingress.class: "istio"
+    ingress.kubernetes.io/rewrite-target: /trader
 spec:
   rules:
-  - http:
+  - host:
+    http:
       paths:
-      - path: /trader/.*
-        backend:
+        path: /trader
+      - backend:
           serviceName: trader-service
-          servicePort: {{ .Values.service.servicePort.https }}
+          servicePort: {{ .Values.service.servicePort.http }}

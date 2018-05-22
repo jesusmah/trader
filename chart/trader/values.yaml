@@ -34,8 +34,8 @@ secret:
     key: Ymx1ZWlkcHJvZA==
     # name: IBMid
     name: SUJNaWQ=
-    # nodeport: https://9.42.84.151:32389
-    nodeport: aHR0cHM6Ly85LjQyLjg0LjE1MTozMjM4OQ==
+    # Callback host and port number
+    nodeport:
     # secret: MzhlZTY1ZjItM2IwNC00
     secret: TXpobFpUWTFaakl0TTJJd05DMDA=
     # token: https://idaas.iam.ibm.com/idaas/oidc/endpoint/default/token
