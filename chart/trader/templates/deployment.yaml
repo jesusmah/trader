@@ -50,46 +50,6 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}-{{ .Chart.Name }}
                 key: portfolio_service_context
-          - name: OIDC_NAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.oidc.secret_name }}
-                key: name
-          - name: OIDC_ISSUER
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.oidc.secret_name }}
-                key: issuer
-          - name: OIDC_AUTH
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.oidc.secret_name }}
-                key: auth
-          - name: OIDC_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.oidc.secret_name }}
-                key: token
-          - name: OIDC_ID
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.oidc.secret_name }}
-                key: id
-          - name: OIDC_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.oidc.secret_name }}
-                key: secret
-          - name: OIDC_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.oidc.secret_name }}
-                key: key
-          - name: OIDC_NODEPORT
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.oidc.secret_name }}
-                key: nodeport
           - name: JWT_AUDIENCE
             valueFrom:
               secretKeyRef:
