@@ -10,7 +10,7 @@ spec:
   - host:
     http:
       paths:
-        path: /trader
-      - backend:
+      - path: /trader
+        backend:
           serviceName: trader-service
           servicePort: {{ .Values.service.servicePort.http }}
