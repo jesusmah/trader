@@ -14,9 +14,11 @@ spec:
       protocol: TCP
       port: {{ .Values.service.servicePort.http }}
       targetPort: {{ .Values.image.containerPort.http }}
+      nodePort: {{ .Values.service.nodePort.http }}
     - name: https
       protocol: TCP
       port: {{ .Values.service.servicePort.https }}
       targetPort: {{ .Values.image.containerPort.https }}
+      nodePort: {{ .Values.service.nodePort.https }}
   selector:
     app: "{{ .Release.Name }}-{{ .Chart.Name }}-selector"

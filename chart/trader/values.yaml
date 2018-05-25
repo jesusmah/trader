@@ -20,6 +20,9 @@ service:
   servicePort:
     http: 9080
     https: 9443
+  nodePort:
+    http:
+    https:
 secret:
   oidc:
     create: false
