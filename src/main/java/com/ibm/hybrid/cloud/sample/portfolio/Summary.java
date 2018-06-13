@@ -65,6 +65,8 @@ public class Summary extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String hostname = System.getenv("HOSTNAME");
+		System.out.println("Request reached trader pod: " + hostname);
 		boolean editor = request.isUserInRole(EDITOR);
 		Writer writer = response.getWriter();
 		writer.append("<!DOCTYPE html>");

@@ -49,10 +49,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RequestScoped
 public class PortfolioServices {
-	private static final String PORTFOLIO_SERVICE = System.getenv("PORTFOLIO_SERVICE");
-	private static final String PORTFOLIO_SERVICE_PORT = System.getenv("PORTFOLIO_SERVICE_PORT");
-	private static final String PORTFOLIO_SERVICE_CONTEXT = System.getenv("PORTFOLIO_SERVICE_CONTEXT");
-	private static final String PORTFOLIO_SERVICE_URL = "http://" + PORTFOLIO_SERVICE + ":" + PORTFOLIO_SERVICE_PORT + "/" + PORTFOLIO_SERVICE_CONTEXT;
+	private static final String PORTFOLIO_SERVICE = "http://portfolio-service:9080/portfolio";
 	private static PortfolioServices singleton = null;
 
 	private String jwtAudience = System.getenv("JWT_AUDIENCE"); //use mpConfig instead of this
@@ -87,7 +84,7 @@ public class PortfolioServices {
 		JsonObject portfolio = null;
 
 		try {
-			portfolio = (JsonObject) invokeREST(request, "GET", PORTFOLIO_SERVICE_URL+"/"+owner, null);
+			portfolio = (JsonObject) invokeREST(request, "GET", PORTFOLIO_SERVICE+"/"+owner, null);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -99,7 +96,7 @@ public class PortfolioServices {
 		JsonObject portfolio = null;
 
 		try {
-			portfolio = (JsonObject) invokeREST(request, "POST", PORTFOLIO_SERVICE_URL+"/"+owner, null);
+			portfolio = (JsonObject) invokeREST(request, "POST", PORTFOLIO_SERVICE+"/"+owner, null);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -111,7 +108,7 @@ public class PortfolioServices {
 		JsonObject portfolio = null;
 
 		try {
-			String uri = PORTFOLIO_SERVICE_URL+"/"+owner+"?symbol="+symbol+"&shares="+shares;
+			String uri = PORTFOLIO_SERVICE+"/"+owner+"?symbol="+symbol+"&shares="+shares;
 			portfolio = (JsonObject) invokeREST(request, "PUT", uri, null);
 		} catch (Throwable t) {
 			t.printStackTrace();
@@ -124,7 +121,7 @@ public class PortfolioServices {
 		JsonObject portfolio = null;
 
 		try {
-			portfolio = (JsonObject) invokeREST(request, "DELETE", PORTFOLIO_SERVICE_URL+"/"+owner, null);
+			portfolio = (JsonObject) invokeREST(request, "DELETE", PORTFOLIO_SERVICE+"/"+owner, null);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -137,7 +134,7 @@ public class PortfolioServices {
 
 		try {
 			String text = feedback.toString();
-			response = (JsonObject) invokeREST(request, "POST", PORTFOLIO_SERVICE_URL+"/"+owner+"/feedback", text);
+			response = (JsonObject) invokeREST(request, "POST", PORTFOLIO_SERVICE+"/"+owner+"/feedback", text);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
