@@ -22,7 +22,7 @@
         <feature>socialLogin-1.0</feature>
     </featureManager>
 
-    <logging consoleLogLevel="INFO" traceSpecification="*=info"/>
+    <logging consoleLogLevel="INFO" traceSpecification="*=${env.TRACE_SPECIFICATION}"/>
 
     <httpEndpoint httpPort="9080" httpsPort="9443" host="*" id="defaultHttpEndpoint"/>
 
@@ -72,7 +72,7 @@
            issuer="${env.OIDC_ISSUER}" trustAliasName="${env.OIDC_KEY}"
            redirectToRPHostAndPort="${env.OIDC_NODEPORT}">
     </oidcLogin>
- 
+
     <webAppSecurity allowFailOverToBasicAuth="true" displayAuthenticationRealm="true" logoutOnHttpSessionExpire="true"
         webAlwaysLogin="true" preserveFullyQualifiedReferrerUrl="true" trackLoggedOutSSOCookies="true" ssoCookieName="StockTraderSSO"
         useOnlyCustomCookieName="true" ssoUseDomainFromURL="true"/>

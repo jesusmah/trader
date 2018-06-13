@@ -15,6 +15,7 @@
 # FROM openliberty/open-liberty:microProfile1
 FROM websphere-liberty:microProfile
 COPY server.xml /config/server.xml
+COPY server.env /config/server.env
 COPY target/trader-1.0-SNAPSHOT.war /config/apps/TraderUI.war
 COPY key.jks /config/resources/security/key.jks
 COPY validationKeystore.jks /config/resources/security/validationKeystore.jks
