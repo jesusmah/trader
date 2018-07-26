@@ -35,21 +35,6 @@ spec:
         image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-          - name: PORTFOLIO_SERVICE
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}-{{ .Chart.Name }}
-                key: portfolio_service
-          - name: PORTFOLIO_SERVICE_PORT
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}-{{ .Chart.Name }}
-                key: portfolio_service_port
-          - name: PORTFOLIO_SERVICE_CONTEXT
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}-{{ .Chart.Name }}
-                key: portfolio_service_context
           - name: OIDC_NAME
             valueFrom:
               secretKeyRef:
