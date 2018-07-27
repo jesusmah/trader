@@ -42,7 +42,7 @@ secret:
     # Callback host and port number. This is the redirect URI the Trader BFF microservice sends with
     # its requests. This redirect URI must be configured in the IBMid Client Configuration.
     # The redirect URI looks like:
-    # https://<ICP_proxy_ip>:<Trader_BFF_NodePort>/ibm/api/social-login/redirect/IBMid
+    # https://<ICP_proxy_ip>:<Trader_BFF_NodePort>
     nodeport:
     # Your IBMid SSO clientSecret
     secret:
